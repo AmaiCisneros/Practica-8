@@ -16,8 +16,7 @@ Necesitamos abrir ambos simuladores ;
      2. Sensor DHT22
 
 -  1°- En WOWKI colocaremos el siguiente Codigo;
-  
-#include <ArduinoJson.h>
+  #include <ArduinoJson.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
 #define BUILTIN_LED 2
@@ -28,8 +27,8 @@ DHTesp dhtSensor;
 
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
-const char* mqtt_server = "3.122.45.170";
-String username_mqtt="AmaiCis";
+const char* mqtt_server = "3.65.168.153";
+String username_mqtt="ACH1309";
 String password_mqtt="12345678";
 
 WiFiClient espClient;
@@ -64,75 +63,75 @@ void setup_wifi() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-   Serial.print("Message arrived [");
-   Serial.print(topic);
-   Serial.print("]
-   for (int i = 0; i < length; i++) {
-     Serial.print((char)payload[i]);
-   }
-   Serial.println();
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
 
   // Switch on the LED if an 1 was received as first character
-   if ((char)payload[0] == '1') {
-     digitalWrite(BUILTIN_LED, LOW);   
-     // Turn the LED on (Note that LOW is the voltage level
-     // but actually the LED is on; this is because
-     // it is active low on the ESP-01)
-   } else {
-     digitalWrite(BUILTIN_LED, HIGH);  
-     // Turn the LED off by making the voltage HIGH
-   }
+  if ((char)payload[0] == '1') {
+    digitalWrite(BUILTIN_LED, LOW);   
+    // Turn the LED on (Note that LOW is the voltage level
+    // but actually the LED is on; this is because
+    // it is active low on the ESP-01)
+  } else {
+    digitalWrite(BUILTIN_LED, HIGH);  
+    // Turn the LED off by making the voltage HIGH
+  }
 
- }
+}
 
- void reconnect() {
-   // Loop until we're reconnected
-   while (!client.connected()) {
-     Serial.print("Attempting MQTT connection...");
-     // Create a random client ID
-      String clientId = "ESP8266Client-";
-     clientId += String(random(0xffff), HEX);
-      // Attempt to connect
-     if (client.connect(clientId.c_str(), username_mqtt.c_str() , password_mqtt.c_str())) {
-       Serial.println("connected");
-       // Once connected, publish an announcement...
-       client.publish("outTopic", "hello world");
-       // ... and resubscribe
-       client.subscribe("inTopic");
-     } else {
-       Serial.print("failed, rc=");
-       Serial.print(client.state());
-       Serial.println(" try again in 5 seconds");
-       // Wait 5 seconds before retrying
-       delay(5000);
-     }
-   }
- }
+void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    // Create a random client ID
+    String clientId = "ESP8266Client-";
+    clientId += String(random(0xffff), HEX);
+    // Attempt to connect
+    if (client.connect(clientId.c_str(), username_mqtt.c_str() , password_mqtt.c_str())) {
+      Serial.println("connected");
+      // Once connected, publish an announcement...
+      client.publish("outTopic", "hello world");
+      // ... and resubscribe
+      client.subscribe("inTopic");
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}
 
- void setup() {
-   pinMode(BUILTIN_LED, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
-   Serial.begin(115200);
-   setup_wifi();
-   client.setServer(mqtt_server, 1883);
-   client.setCallback(callback);
-   dhtSensor.setup(DHT_PIN, DHTesp::DHT22);
- }
+void setup() {
+  pinMode(BUILTIN_LED, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
+  Serial.begin(115200);
+  setup_wifi();
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
+  dhtSensor.setup(DHT_PIN, DHTesp::DHT22);
+}
 
- void loop() {
+void loop() {
 
 
- delay(1000);
- TempAndHumidity  data = dhtSensor.getTempAndHumidity();
-   if (!client.connected()) {
-     reconnect();
-   }
-   client.loop();
+delay(1000);
+TempAndHumidity  data = dhtSensor.getTempAndHumidity();
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
 
-   unsigned long now = millis();
-   if (now - lastMsg > 2000) {
-     lastMsg = now;
-     //++value;
-     //snprintf (msg, MSG_BUFFER_SIZE, "hello world #%ld", value);
+  unsigned long now = millis();
+  if (now - lastMsg > 2000) {
+    lastMsg = now;
+    //++value;
+    //snprintf (msg, MSG_BUFFER_SIZE, "hello world #%ld", value);
 
     StaticJsonDocument<128> doc;
 
@@ -150,14 +149,17 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print("Publish message: ");
     Serial.println(output);
     Serial.println(output.c_str());
-    client.publish("AmaiTemp", output.c_str());
+    client.publish("Cisneros1", output.c_str());
   }
 }
 
+
 - 2°-Instalamos las librerias que utilizaremos
-- 
+- ![]()
+  
 
 - 3°- Agregar el Sensor DHT22 y realizar las conexiones con la ESP22
+- ![]()
 
 - 4° - En el programa Node Red vamos a instalar  el bloque de mqtt in, posteriormente bloque json , asi mismo las function y los bloques de Chart y Gaugue Correspondientes 
   -En bloque mqtt in colocamos el nombre del topico y el numero de la IP que se utilizara (esta dede de ser la misma que la que se coloco en el codigo)
@@ -172,11 +174,15 @@ void callback(char* topic, byte* payload, unsigned int length) {
     return msg;
   -En bloques de Chart y Gaugue
    Selecionar los grupos de chart en graficos y los gaugue en indicador, colocar los datos que corresponden 
+![]()
+![]()
+![]()
+![]()
 
 
 
 -5° - Hacemos correr la programacion en WOKWI asegurandonos que se conecto de manera correcta. Finalmente el  NODE-RED y la ESP32 dentro de WOKWI arrojaran los resultados deseados
-
+![]()
 
 - 
 
