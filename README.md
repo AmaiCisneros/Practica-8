@@ -155,11 +155,11 @@ TempAndHumidity  data = dhtSensor.getTempAndHumidity();
 
 
 - 2°-Instalamos las librerias que utilizaremos
-- ![]()
+- ![](https://github.com/AmaiCisneros/Practica-8/blob/main/1.png)
   
 
 - 3°- Agregar el Sensor DHT22 y realizar las conexiones con la ESP22
-- ![]()
+- ![](https://github.com/AmaiCisneros/Practica-8/blob/main/2.png)
 
 - 4° - En el programa Node Red vamos a instalar  el bloque de mqtt in, posteriormente bloque json , asi mismo las function y los bloques de Chart y Gaugue Correspondientes 
   -En bloque mqtt in colocamos el nombre del topico y el numero de la IP que se utilizara (esta dede de ser la misma que la que se coloco en el codigo)
@@ -174,15 +174,14 @@ TempAndHumidity  data = dhtSensor.getTempAndHumidity();
     return msg;
   -En bloques de Chart y Gaugue
    Selecionar los grupos de chart en graficos y los gaugue en indicador, colocar los datos que corresponden 
-![]()
-![]()
-![]()
-![]()
-
+![](https://github.com/AmaiCisneros/Practica-8/blob/main/3.png)
+![](https://github.com/AmaiCisneros/Practica-8/blob/main/4.png)
+![](https://github.com/AmaiCisneros/Practica-8/blob/main/5.png)
+![](https://github.com/AmaiCisneros/Practica-8/blob/main/6.png)
+![](https://github.com/AmaiCisneros/Practica-8/blob/main/7.png)
 
 
 -5° - Hacemos correr la programacion en WOKWI asegurandonos que se conecto de manera correcta. Finalmente el  NODE-RED y la ESP32 dentro de WOKWI arrojaran los resultados deseados
-![]()
+![](https://github.com/AmaiCisneros/Practica-8/blob/main/8.png)
 
-- 
 
