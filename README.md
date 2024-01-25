@@ -10,16 +10,11 @@
 
 Material Necesario
 Necesitamos abrir ambos simuladores ;
--Node.js-   Para ejecutar abrir CMD colocar "Node.js" en el comando e ingresar en linea a http://localhost:1880/
--WOKWI-  Dentro del simulador utilizaremos lo siguiente;
+-Node.js-  ;Para ejecutar abrir CMD colocar "Node.js" en el comando e ingresar en linea a http://localhost:1880/
+-WOKWI ; Dentro del simulador utilizaremos lo siguiente;
      1. Tarjeta ESP 32
      2. Sensor DHT22
 
-- 1 °- En Node Red creamos un nuevo flow
-- 
-
-
-     
 -  1°- En WOWKI colocaremos el siguiente Codigo;
   
 #include <ArduinoJson.h>
@@ -164,6 +159,24 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 - 3°- Agregar el Sensor DHT22 y realizar las conexiones con la ESP22
 
-- 
+- 4° - En el programa Node Red vamos a instalar  el bloque de mqtt in, posteriormente bloque json , asi mismo las function y los bloques de Chart y Gaugue Correspondientes 
+  -En bloque mqtt in colocamos el nombre del topico y el numero de la IP que se utilizara (esta dede de ser la misma que la que se coloco en el codigo)
+  -El bloque json colocar la accion de Always convert to JavaScript Object
+  -En los bloques function colocaremos estos codigos uno en cada uno ;
+    msg.payload = msg.payload.TEMPERATURA;
+    msg.topic = "TEMPERATURA";
+    return msg;
+  
+    msg.payload = msg.payload.HUMEDAD;
+    msg.topic = "HUMEDAD";
+    return msg;
+  -En bloques de Chart y Gaugue
+   Selecionar los grupos de chart en graficos y los gaugue en indicador, colocar los datos que corresponden 
+
+
+
+-5° - Hacemos correr la programacion en WOKWI asegurandonos que se conecto de manera correcta. Finalmente el  NODE-RED y la ESP32 dentro de WOKWI arrojaran los resultados deseados
+
+
 - 
 
